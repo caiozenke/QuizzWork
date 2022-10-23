@@ -75,4 +75,4 @@ if __name__ == "__main__":
     print()
     print('jogadores sem time')
     for js in db.session.query(Jogador).filter(Jogador.times_id == None):
-        del(js)
+        print(js)
