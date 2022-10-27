@@ -1,6 +1,8 @@
 
 from modelo import *
 from config import *
+from flask import request
+
 
 @app.route("/")
 
@@ -11,21 +13,26 @@ def calcular():
     db.session.execute(f'UPDATE  Jogador SET valor = (valor * {1.7}) where titulos > {6}')
     db.session.execute(f'UPDATE  Jogador SET valor = (valor * {1.26}) where kills > {1000}')
 
-
+@app.route('/incluir/<string:classe>', methods = ['post'])
 
 def incluir(classe):
-    dados = request.get_json(force=True)
-
+    
+    resposta = jsonify({"resultado": "ok", "detalhes": "ok"})
+    
+    dados = request.get_json()
     try: 
       if classe == "Time":
         nova = Time(**dados) 
-      elif classe == "Professor":
+      elif classe == "Jogador":
         
         nova = Jogador(**dados) 
   
         
       db.session.add(nova)
       db.session.commit()
+      calcular()
+      db.session.commit()
+
 
 
     except Exception as e: 
@@ -33,7 +40,7 @@ def incluir(classe):
       resposta = jsonify({"resultado":"erro", "detalhes":str(e)})
 
 
-    # adicionar cabeçalho de liberação de origem
+    
     resposta.headers.add("Access-Control-Allow-Origin", "*")
     return resposta 
   
@@ -44,7 +51,7 @@ def listar_tudo(classe):
     if classe == 'Jogador':
             
         calcular()
-        dados = db.session.query(Jogador).all()()
+        dados = db.session.query(Jogador).all()
 
     elif classe == 'Time':
         dados = db.session.query(Time).all()
