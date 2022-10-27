@@ -18,7 +18,7 @@ class Jogador(db.Model):
     nome = db.Column(db.String(254))
     titulos = db.Column(db.Integer)
     kills = db.Column(db.Integer)
-    valor = db.Column(db.Float)
+    valor = db.Column(db.Float ,default = 10)
 
     times_id = db.Column(db.Integer, db.ForeignKey(Time.id), 
                           nullable=True)
@@ -52,7 +52,7 @@ if __name__ == "__main__":
     p2 = Jogador(nome = "Faker", titulos = 7, 
         kills = 1323, valor = 213, time= t1)
     p3 = Jogador(nome = "guamyusi", titulos = 0, 
-        kills = 23, valor = 13, time= t1)
+        kills = 23,  time= t1)
    
    
     
