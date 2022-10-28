@@ -29,7 +29,7 @@ class Jogador(db.Model):
             str(self.titulos) + ", " + str(self.kills) + " , " + str(self.valor)
     def json(self):
     
-        j1 = {'nome': self.nome,'titulos': self.titulos , "kills": self.kills , "valor": self.valor}
+        j1 = {'id':self.id, 'nome': self.nome,'titulos': self.titulos , "kills": self.kills , "valor": self.valor, "ids": self.times_id}
         return j1
 
 
@@ -48,7 +48,7 @@ if __name__ == "__main__":
     p1 = Jogador(nome = "Oner", titulos = 3, 
         kills = 10323, valor = 32)
     p5 = Jogador(nome = "Showmaker", titulos = 1, 
-        kills = 323, valor = 22)
+        kills = 323)
     p2 = Jogador(nome = "Faker", titulos = 7, 
         kills = 1323, valor = 213, time= t1)
     p3 = Jogador(nome = "guamyusi", titulos = 0, 
